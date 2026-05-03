@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIRS — AI Coach</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <script defer src="../assets/js/app.js"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <div class="navbar-brand-dot"></div>
+        MIRS
+      </div>
+      <div class="navbar-tabs">
+        <a class="nav-tab" href="assessment.html">📋 Assessment</a>
+        <a class="nav-tab" href="dashboard.html">📊 My Score</a>
+        <a class="nav-tab active" href="coach.html">🤖 AI Coach</a>
+        <a class="nav-tab" href="learn.html">📚 Learn</a>
+        <a class="nav-tab" href="#" onclick="logout(); return false;">🚪 Log out</a>
+      </div>
+    </nav>
+
+    <div class="app-wrapper">
+      <div class="coach-layout">
+        <div class="coach-header">
+          <div class="coach-avatar">🤖</div>
+          <div>
+            <div class="coach-name">Artha — AI Financial Coach</div>
+            <div class="coach-status">Online · replies instantly</div>
+          </div>
+        </div>
+
+        <div class="messages" id="chatMessages">
+          <div class="msg-row">
+            <div class="msg-av ai">🤖</div>
+            <div class="msg-content">
+              <div class="msg-name">Artha</div>
+              <div class="bubble ai" id="welcomeBubble">
+                Hey! 👋 I'm <strong>Artha</strong>, your personal money coach. I'm here to answer any money or investing question — in
+                plain English, no confusing terms.<br /><br />
+                Complete the assessment first to get a personalised response, or just ask me anything below!
+                <div class="suggest-chips">
+                  <div class="s-chip" onclick="sendChip(this)">What is a SIP?</div>
+                  <div class="s-chip" onclick="sendChip(this)">How much should I invest?</div>
+                  <div class="s-chip" onclick="sendChip(this)">What is an index fund?</div>
+                  <div class="s-chip" onclick="sendChip(this)">Explain my score</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quick-bar">
+          <div class="quick-chip" onclick="sendChip(this)">Is ₹500/month enough to start?</div>
+          <div class="quick-chip" onclick="sendChip(this)">What happens if markets crash?</div>
+          <div class="quick-chip" onclick="sendChip(this)">Mutual fund vs fixed deposit</div>
+          <div class="quick-chip" onclick="sendChip(this)">Should I pay off debt first?</div>
+          <div class="quick-chip" onclick="sendChip(this)">How to open an account?</div>
+        </div>
+
+        <div class="input-bar">
+          <div class="input-wrap">
+            <textarea
+              id="chatInput"
+              placeholder="Ask Artha anything about money…"
+              rows="1"
+              onkeydown="handleEnter(event)"
+              oninput="autoGrow(this)"
+            ></textarea>
+            <button class="send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
+          </div>
+          <div class="input-hint">Artha uses AI · For educational guidance only · Not a certified financial advisor</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

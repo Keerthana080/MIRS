@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIRS — My Score</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <script defer src="../assets/js/app.js"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <div class="navbar-brand-dot"></div>
+        MIRS
+      </div>
+      <div class="navbar-tabs">
+        <a class="nav-tab" href="assessment.html">📋 Assessment</a>
+        <a class="nav-tab active" href="dashboard.html">📊 My Score</a>
+        <a class="nav-tab" href="coach.html">🤖 AI Coach</a>
+        <a class="nav-tab" href="learn.html">📚 Learn</a>
+        <a class="nav-tab" href="#" onclick="logout(); return false;">🚪 Log out</a>
+      </div>
+    </nav>
+
+    <div class="app-wrapper">
+      <div class="page-hero">
+        <div class="page-hero-inner">
+          <div class="hero-eyebrow">Your investment readiness score</div>
+
+          <div class="score-display">
+            <div class="score-ring-wrap">
+              <canvas id="scoreCanvas" width="140" height="140"></canvas>
+              <div class="score-ring-text">
+                <span class="score-ring-num" id="scoreNum">0</span>
+                <span class="score-ring-denom">/100</span>
+              </div>
+            </div>
+            <div class="score-meta">
+              <div class="score-tier-badge tier-ready" id="tierBadge">Loading…</div>
+              <div class="score-headline" id="scoreHeadline">Loading…</div>
+              <div class="score-subline" id="scoreSubline"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-inner" style="padding-top: 0">
+        <div class="section-label">AI Insights</div>
+        <div class="card">
+          <div id="aiInsightsMount"></div>
+        </div>
+
+        <div class="section-label">Score breakdown</div>
+        <div class="card">
+          <div id="dimList"></div>
+        </div>
+
+        <div class="section-label">What-if simulator</div>
+        <div class="card">
+          <div style="font-family: var(--font-head); font-size: 16px; font-weight: 700; margin-bottom: 4px">
+            Play with the numbers 🎮
+          </div>
+          <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 18px">
+            See how small changes could improve your score and grow your money
+          </div>
+
+          <div style="margin-bottom: 16px">
+            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px">
+              <span style="color: var(--text-muted)">If I save an extra…</span>
+              <span style="font-family: var(--font-head); font-weight: 700" id="wi-saveVal">₹500 / month</span>
+            </div>
+            <input type="range" id="wi-save" min="0" max="5000" step="500" value="500" oninput="updateWhatIf()" />
+          </div>
+
+          <div style="margin-bottom: 16px">
+            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px">
+              <span style="color: var(--text-muted)">Over…</span>
+              <span style="font-family: var(--font-head); font-weight: 700" id="wi-yearVal">3 years</span>
+            </div>
+            <input type="range" id="wi-years" min="1" max="10" step="1" value="3" oninput="updateWhatIf()" />
+          </div>
+
+          <div class="whatif-result">
+            <div class="whatif-metric">
+              <div class="whatif-val" id="wi-total" style="color: var(--blue)">₹18,000</div>
+              <div class="whatif-label">Total saved</div>
+            </div>
+            <div class="whatif-metric">
+              <div class="whatif-val" id="wi-growth" style="color: var(--green)">₹20,680</div>
+              <div class="whatif-label">With 10% growth</div>
+            </div>
+            <div class="whatif-metric">
+              <div class="whatif-val" id="wi-boost" style="color: var(--amber)">+8 pts</div>
+              <div class="whatif-label">Score boost</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-label" id="recoSectionLabel">Recommendations</div>
+        <div class="reco-grid" id="recoGrid"></div>
+
+        <div class="section-label">Your action plan</div>
+        <div class="card">
+          <div class="timeline" id="timeline"></div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap">
+          <a class="btn-primary" style="flex: 1" href="coach.html">Chat with AI Coach 💬</a>
+          <a class="btn-secondary" style="flex: 1" href="learn.html">Start Learning 📚</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

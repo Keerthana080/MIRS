@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIRS — Users</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <script defer src="../assets/js/users.js"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <div class="navbar-brand-dot"></div>
+        MIRS
+      </div>
+      <div class="navbar-tabs">
+        <a class="nav-tab" href="assessment.html">📋 Assessment</a>
+        <a class="nav-tab" href="dashboard.html">📊 My Score</a>
+        <a class="nav-tab" href="coach.html">🤖 AI Coach</a>
+        <a class="nav-tab" href="learn.html">📚 Learn</a>
+      </div>
+    </nav>
+
+    <div class="app-wrapper">
+      <div class="page-inner">
+        <div class="section-label">Saved users (from database)</div>
+
+        <div class="card">
+          <div style="font-family: var(--font-head); font-size: 16px; font-weight: 700; margin-bottom: 6px">User history</div>
+          <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px">
+            Each refresh creates a new user. Older users remain in the database and can be reloaded.
+          </div>
+          <div id="usersList" style="display: grid; gap: 10px"></div>
+        </div>
+
+        <div class="card">
+          <div style="font-family: var(--font-head); font-size: 16px; font-weight: 700; margin-bottom: 6px">How to use</div>
+          <div style="font-size: 13px; color: var(--text-muted); line-height: 1.7">
+            - Click <strong>Load</strong> to load that user’s latest saved data into your browser and open the dashboard.<br />
+            - If there are no users listed yet, complete an assessment at least once so it gets saved.
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

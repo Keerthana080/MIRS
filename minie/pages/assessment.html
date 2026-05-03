@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIRS — Assessment</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <script defer src="../assets/js/app.js"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <div class="navbar-brand-dot"></div>
+        MIRS
+      </div>
+      <div class="navbar-tabs">
+        <a class="nav-tab active" href="assessment.html">📋 Assessment</a>
+        <a class="nav-tab" href="dashboard.html">📊 My Score</a>
+        <a class="nav-tab" href="coach.html">🤖 AI Coach</a>
+        <a class="nav-tab" href="learn.html">📚 Learn</a>
+        <a class="nav-tab" href="#" onclick="logout(); return false;">🚪 Log out</a>
+      </div>
+    </nav>
+
+    <div class="app-wrapper">
+      <div class="page-inner">
+        <div style="text-align: center; margin-bottom: 28px">
+          <div
+            style="
+              font-family: var(--font-head);
+              font-size: 11px;
+              font-weight: 600;
+              text-transform: uppercase;
+              letter-spacing: 0.1em;
+              color: var(--green);
+              margin-bottom: 10px;
+            "
+          >
+            Step-by-step assessment
+          </div>
+          <h1
+            style="
+              font-family: var(--font-head);
+              font-size: clamp(22px, 5vw, 32px);
+              font-weight: 800;
+              margin-bottom: 8px;
+            "
+          >
+            Are you <span style="color: var(--green)">ready</span> to invest?
+          </h1>
+          <p
+            style="
+              font-size: 14px;
+              color: var(--text-muted);
+              line-height: 1.7;
+              max-width: 420px;
+              margin: 0 auto;
+            "
+          >
+            Answer a few honest questions. We'll calculate your readiness score and store it in the database.
+          </p>
+        </div>
+
+        <div class="step-progress">
+          <div class="step-progress-meta">
+            <span class="step-progress-label" id="stepLabel">Step 1 of 5</span>
+            <span class="step-progress-pct" id="stepPct">0% complete</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" id="stepBarFill" style="background: var(--green)"></div>
+          </div>
+        </div>
+
+        <div class="step-block active" id="step1">
+          <h2 class="step-title">About you</h2>
+          <p class="step-desc">No right or wrong answers — just be honest so we give you the most useful advice.</p>
+
+          <div class="step-section">
+            <div class="step-section-title">👤 Who are you right now?</div>
+            <div class="field">
+              <label>I am currently a…</label>
+              <div class="pill-group" id="pg-profile">
+                <div class="pill" data-val="student">College student</div>
+                <div class="pill" data-val="earner">First-time earner</div>
+                <div class="pill" data-val="freelancer">Freelancer / gig worker</div>
+                <div class="pill" data-val="parttime">Part-time worker</div>
+              </div>
+            </div>
+            <div class="field">
+              <label>Age range</label>
+              <div class="pill-group" id="pg-age">
+                <div class="pill" data-val="18-21">18–21</div>
+                <div class="pill" data-val="22-25">22–25</div>
+                <div class="pill" data-val="26-30">26–30</div>
+                <div class="pill" data-val="30+">30+</div>
+              </div>
+            </div>
+            <div class="field">
+              <label>Have you invested money before?</label>
+              <div class="pill-group" id="pg-exp">
+                <div class="pill" data-val="never">Never, totally new</div>
+                <div class="pill" data-val="heard">Heard about it, never tried</div>
+                <div class="pill" data-val="little">Tried a little bit</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-nav">
+            <button class="btn-primary" onclick="nextStep(1)">Continue →</button>
+          </div>
+        </div>
+
+        <div class="step-block" id="step2">
+          <h2 class="step-title">Your money in & out</h2>
+          <p class="step-desc">Rough numbers are fine. This helps us calculate your savings rate.</p>
+
+          <div class="step-section">
+            <div class="step-section-title">💰 Monthly income</div>
+            <div class="field">
+              <label>Total money you receive every month (₹)</label>
+              <div class="rupee-wrap">
+                <span>₹</span><input type="number" id="f-income" placeholder="e.g. 15000" min="0" oninput="updateSavings()" />
+              </div>
+            </div>
+          </div>
+
+          <div class="step-section">
+            <div class="step-section-title">🛒 Monthly expenses</div>
+            <div class="field-row">
+              <div class="field">
+                <label>Rent (₹0 if at home)</label>
+                <div class="rupee-wrap">
+                  <span>₹</span><input type="number" id="f-rent" placeholder="0" min="0" value="0" oninput="updateSavings()" />
+                </div>
+              </div>
+              <div class="field">
+                <label>Food & groceries</label>
+                <div class="rupee-wrap">
+                  <span>₹</span><input type="number" id="f-food" placeholder="3000" min="0" oninput="updateSavings()" />
+                </div>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Transport</label>
+                <div class="rupee-wrap">
+                  <span>₹</span><input type="number" id="f-transport" placeholder="1000" min="0" oninput="updateSavings()" />
+                </div>
+              </div>
+              <div class="field">
+                <label>Phone & internet</label>
+                <div class="rupee-wrap">
+                  <span>₹</span><input type="number" id="f-phone" placeholder="500" min="0" oninput="updateSavings()" />
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label>Everything else</label>
+              <div class="rupee-wrap">
+                <span>₹</span><input type="number" id="f-misc" placeholder="2000" min="0" oninput="updateSavings()" />
+              </div>
+            </div>
+
+            <div class="savings-preview">
+              <div class="amount" id="savingsAmt">₹0</div>
+              <div class="label">💡 What you'd have left to save each month</div>
+            </div>
+          </div>
+
+          <div class="step-section">
+            <div class="step-section-title">💳 Debt & safety net</div>
+            <div class="field">
+              <label>Total debt / loans (₹)</label>
+              <div class="rupee-wrap"><span>₹</span><input type="number" id="f-debt" placeholder="0" min="0" value="0" /></div>
+            </div>
+            <div class="field">
+              <label>Emergency fund</label>
+              <div class="pill-group" id="pg-emergency">
+                <div class="pill" data-val="0">No savings at all</div>
+                <div class="pill" data-val="1">Less than 1 month</div>
+                <div class="pill" data-val="3">About 1–3 months</div>
+                <div class="pill" data-val="6">More than 3 months</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-nav">
+            <button class="btn-secondary" onclick="prevStep(2)">← Back</button>
+            <button class="btn-primary" onclick="nextStep(2)">Continue →</button>
+          </div>
+        </div>
+
+        <div class="step-block" id="step3">
+          <h2 class="step-title">Goals & comfort with risk</h2>
+          <p class="step-desc">This helps us match you with investments that suit your timeline.</p>
+
+          <div class="step-section">
+            <div class="step-section-title">🎯 What do you want to do with your money?</div>
+            <div class="field">
+              <label>My main goal</label>
+              <div class="pill-group" id="pg-goal">
+                <div class="pill" data-val="emergency">🛡️ Build a safety net</div>
+                <div class="pill" data-val="shortterm">📱 Buy something in 1–2 years</div>
+                <div class="pill" data-val="wealth">📈 Grow money over 5+ years</div>
+                <div class="pill" data-val="learn">🧠 Just learning for now</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-section">
+            <div class="step-section-title">⚡ How do you feel about risk?</div>
+            <div class="field">
+              <label>You invest ₹5,000. It drops to ₹4,000. You…</label>
+              <div class="pill-group" id="pg-risk">
+                <div class="pill" data-val="1">😰 Pull everything out</div>
+                <div class="pill" data-val="2">😬 Lose sleep but wait</div>
+                <div class="pill" data-val="3">😐 Stay calm, this is normal</div>
+                <div class="pill" data-val="4">😎 Buy more at lower price</div>
+              </div>
+            </div>
+            <div class="field">
+              <label>How long can you leave money invested without touching it?</label>
+              <div class="pill-group" id="pg-horizon">
+                <div class="pill" data-val="0">I might need it anytime</div>
+                <div class="pill" data-val="1">Up to 1 year</div>
+                <div class="pill" data-val="3">1–3 years</div>
+                <div class="pill" data-val="5">3–5 years or more</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-nav">
+            <button class="btn-secondary" onclick="prevStep(3)">← Back</button>
+            <button class="btn-primary" onclick="nextStep(3)">Continue →</button>
+          </div>
+        </div>
+
+        <div class="step-block" id="step4">
+          <h2 class="step-title">Quick money knowledge check</h2>
+          <p class="step-desc">3 easy questions — wrong answers just show where to start learning.</p>
+
+          <div class="card">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 8px">
+              Question 1 of 3
+            </div>
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; line-height: 1.5">
+              You put ₹1,000 in an account earning 10% interest per year. After 2 years, how much do you have?
+            </div>
+            <div class="quiz-opt" data-q="1" data-correct="false" onclick="answerQuiz(this,1)"><div class="quiz-radio"></div><div><div>₹1,200 — 10% × ₹1,000 × 2 years</div><div class="quiz-feedback">Close! But Year 2 earns on ₹1,100 — that's compounding.</div></div></div>
+            <div class="quiz-opt" data-q="1" data-correct="true" onclick="answerQuiz(this,1)"><div class="quiz-radio"></div><div><div>₹1,210 — your interest also earns interest</div><div class="quiz-feedback">✓ Exactly! Year 1: ₹1,000 → ₹1,100. Year 2: ₹1,100 → ₹1,210.</div></div></div>
+            <div class="quiz-opt" data-q="1" data-correct="false" onclick="answerQuiz(this,1)"><div class="quiz-radio"></div><div><div>₹1,100 — not sure</div><div class="quiz-feedback">That's one year only. After 2 years it becomes ₹1,210.</div></div></div>
+          </div>
+
+          <div class="card">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 8px">
+              Question 2 of 3
+            </div>
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; line-height: 1.5">
+              Inflation in India is ~6%/year. You keep ₹10,000 as cash for a year. What happens?
+            </div>
+            <div class="quiz-opt" data-q="2" data-correct="false" onclick="answerQuiz(this,2)"><div class="quiz-radio"></div><div><div>The amount stays the same — I still have ₹10,000</div><div class="quiz-feedback">The number stays the same but what it buys shrinks.</div></div></div>
+            <div class="quiz-opt" data-q="2" data-correct="true" onclick="answerQuiz(this,2)"><div class="quiz-radio"></div><div><div>It buys less — prices rise, so money is worth less</div><div class="quiz-feedback">✓ Correct! Idle cash loses real value over time.</div></div></div>
+            <div class="quiz-opt" data-q="2" data-correct="false" onclick="answerQuiz(this,2)"><div class="quiz-radio"></div><div><div>It grows — cash increases in value</div><div class="quiz-feedback">Cash doesn't grow; inflation reduces buying power.</div></div></div>
+          </div>
+
+          <div class="card">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 8px">
+              Question 3 of 3
+            </div>
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; line-height: 1.5">
+              You want to invest but don't know which company to pick. What's the safest approach?
+            </div>
+            <div class="quiz-opt" data-q="3" data-correct="false" onclick="answerQuiz(this,3)"><div class="quiz-radio"></div><div><div>Put all money in one company a friend recommended</div><div class="quiz-feedback">Risky. Diversification is safer.</div></div></div>
+            <div class="quiz-opt" data-q="3" data-correct="false" onclick="answerQuiz(this,3)"><div class="quiz-radio"></div><div><div>Wait for a "guaranteed" investment</div><div class="quiz-feedback">Nothing is guaranteed. Learn basics and diversify.</div></div></div>
+            <div class="quiz-opt" data-q="3" data-correct="true" onclick="answerQuiz(this,3)"><div class="quiz-radio"></div><div><div>Buy a fund that holds many companies (like an index fund)</div><div class="quiz-feedback">✓ Smart! That spreads risk across many companies.</div></div></div>
+          </div>
+
+          <div class="step-nav">
+            <button class="btn-secondary" onclick="prevStep(4)">← Back</button>
+            <button class="btn-primary" onclick="nextStep(4)">Continue →</button>
+          </div>
+        </div>
+
+        <div class="step-block" id="step5">
+          <h2 class="step-title">Almost done — review your answers</h2>
+          <p class="step-desc">Take a final look, then we'll calculate and store your readiness score.</p>
+
+          <div class="card" id="reviewCard"></div>
+          <div id="aiResultMount"></div>
+
+          <div class="step-nav">
+            <button class="btn-secondary" onclick="prevStep(5)">← Back</button>
+            <button class="btn-primary" onclick="calculateAndGo()">Calculate My Score ✨</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
